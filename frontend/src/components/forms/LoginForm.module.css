@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('../../assets/font/Gotham-Black.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+.input_box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.label {
+    font: 400 1.5rem 'Gotham';
+}
+
+.input_container {
+    display: flex;
+    align-items: center;
+    border: 0.2rem solid #000;
+
+    background-color: #fff;
+    width: 30rem;
+}
+
+.logo_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #D3D3D3;
+    border-right: 0.2rem solid #000;
+}
+
+.logo_container img {
+    height: 2.2rem;
+    padding: 0.3rem;
+    width: auto;
+}
+
+.input {
+    height: 2.3rem;
+    padding-left: 0.5rem;
+
+    font: 100 1.4rem "Gotham";
+    
+    flex-grow: 1;
+    border: none;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.button_box {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.button_box button {
+    background-color: #fff;
+    border: 0.2rem solid #000;
+    border-radius: 0.7rem;
+    font: 200 1.5rem "Gotham";
+
+    width: 14.2rem;
+    height: 3rem;
+
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+.button_box button:hover {
+    background-color: #000;
+    color: #fff;
+}
