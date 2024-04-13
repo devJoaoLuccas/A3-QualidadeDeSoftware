@@ -10,6 +10,8 @@ function HomepageMenus() {
     const calculadora = () => {
         navigate('/homepage/calculadoraImc')}; 
 
+    const logOff = () => {
+        navigate('/');};
 
     return (
         <div
@@ -24,7 +26,8 @@ function HomepageMenus() {
             <button>
                 Meu Perfil
             </button>
-            <button>
+            <button
+                onClick={logOff}>
                 Sair
             </button>
         </div>
