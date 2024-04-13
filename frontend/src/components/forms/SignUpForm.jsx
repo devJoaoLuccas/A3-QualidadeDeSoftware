@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './Form.module.css'
 
 
 function SignUpForm() {
+
+    const navigate = useNavigate();
+
+    const voltar = () => {
+        navigate('/');
+    }
 
     return (
         <>
@@ -117,7 +124,10 @@ function SignUpForm() {
             </div>
             <div
                 className={styles.button_box}>
-                <button>Voltar</button>
+                <button
+                    onClick={voltar}>
+                        Voltar
+                </button>
                 <button>Cadastre-se </button>
             </div>
         </>

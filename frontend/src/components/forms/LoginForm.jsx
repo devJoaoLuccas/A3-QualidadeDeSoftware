@@ -1,7 +1,12 @@
 import styles from './Form.module.css'
 
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
+
+    const navigate = useNavigate();
+    const cadastrar = () => { 
+        navigate('/cadastrarUsuario')};
 
     return (
         <>
@@ -47,7 +52,10 @@ function LoginForm() {
             </div>
             <div
                 className={styles.button_box}>
-                <button>Cadastre-se</button>
+                <button
+                    onClick={cadastrar}>
+                        Cadastre-se
+                </button>
                 <button>Login</button>
             </div>
         </>
