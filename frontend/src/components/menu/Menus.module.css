@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+.buttons_homepage {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.buttons_homepage button {
+    flex-grow: 1;
+    font: 400 2rem "Gotham";
+    background: transparent;
+
+    border: 0.2rem solid #000;
+    border-radius: 1rem;
+
+    width: 25rem;
+    height: 5rem;
+
+    cursor: pointer;
+    transition: all 0.4s ease-in;
+}
+
+.buttons_homepage button:hover {
+    background-color: #000;
+    color: #fff;
+}
