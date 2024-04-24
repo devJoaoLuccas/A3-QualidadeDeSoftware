@@ -37,6 +37,7 @@ function LoginForm() {
                     if(data.statusCode === 200) {
                         toast.success("Login efetuado com sucesso!");
                         localStorage.setItem("userId", data.idUser);
+                        localStorage.setItem("username", data.username);
                         navigate('/homepage')
                     }
                     else if (data.statusCode === 401) {

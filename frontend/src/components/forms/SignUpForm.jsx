@@ -1,11 +1,18 @@
-import { useNavigate } from 'react-router-dom';
 import styles from './Form.module.css'
 
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function SignUpForm() {
 
     const navigate = useNavigate();
-
+    
+    const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
+    const [confirmEmail, setConfirmEmail] = useState();
+    const [dataNascimento, setDataNascimento] = useState();
+    const [password, setPassword] = useState();
+    
     const voltar = () => {
         navigate('/');
     }
@@ -31,6 +38,7 @@ function SignUpForm() {
                         className={styles.input}
                         type="text" 
                         id="username"
+                        onChange={((e) => username(e.target.value))}
                         required/>
                 </div>
             </div>

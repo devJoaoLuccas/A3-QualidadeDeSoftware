@@ -2,9 +2,11 @@ import styles from './Homepage.module.css'
 
 import HomepageMenus from "../../components/menu/HomepageMenus";
 import Header from '../../components/menu/Header';
-
+import { useEffect } from 'react';
 
 function Homepage() {
+
+    const user = localStorage.getItem("username");
 
     return (
         <main>
@@ -16,7 +18,7 @@ function Homepage() {
                     <HomepageMenus />
                     <footer
                         className={styles.footer}>
-                        <p>Username</p>
+                        <p>{user}</p>
                     </footer>
                 </article>
             </section>

@@ -154,7 +154,8 @@ export async function login (req, res) {
 
             res.json({
                 "statusCode":200,
-                "idUser": id.idUser
+                "idUser": id.idUser,
+                "username":usuario.username
             })
 
         }
