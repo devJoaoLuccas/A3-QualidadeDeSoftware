@@ -99,6 +99,34 @@ export async function adicionarUser (req, res) {
 
 }
 
+export async function updateUser(req, res) {
+
+    const usuario = req.body;
+
+    try {
+        await db.run(
+            `
+                UPDATE users
+                SET username=?, nome=?, sobrenome=?, password=?, email=?
+                WHERE idUser=?
+            `, usuario.username, usuario.nome, usuario.sobrenome, usuario.password, usuario.email);
+
+        console.log(`O usuário foi atualizado com sucesso`, [usuario.username]);
+
+            res.json({
+                "statusCode":200
+            });
+    } catch (error) {
+        res.json({
+            "statusCode": 401
+        })
+
+        console.log("Não foi possível atualizar o usuário");
+    }
+
+}
+
+
 export async function login (req, res) {
 
     const usuario = req.body;
@@ -110,7 +138,7 @@ export async function login (req, res) {
                 FROM users
                 WHERE (email=? OR username=?) AND password=?
             `
-        ,[login.username, login.username, login.password]);
+        ,[usuario.username, usuario.username, usuario.password]);
 
         if(!id) {
             console.log("Não foi possível realizar o login, credenciais inválidas");
@@ -131,12 +159,11 @@ export async function login (req, res) {
 
     } catch (error) {
         console.log("error!", error);
-        
+
         res.status(500).json({
             "statusCode":500,
             "message":"erro interno do servidor"
         });
     }
-
 
 }
