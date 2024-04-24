@@ -15,8 +15,7 @@ function LoginPage() {
                         className={styles.box}>
                         <Header />
                         <LoginForm />
-                        <footer>
-
+                        <footer>                                                                                                                                                                                             
                         </footer>
                     </article>
                 </section>
