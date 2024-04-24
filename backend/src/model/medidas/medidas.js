@@ -23,7 +23,7 @@ export async function createTableMedidas() {
 export async function initInserirMedidas() {
 
     try {
-        `
+        await db.run(`
             INSERT INTO avaliacoes
             (idMedidas, altura, peso, imc, resultado, userId)
             VALUES
@@ -37,10 +37,9 @@ export async function initInserirMedidas() {
                 (8, 1.60, 60.5, 1.50, "Obeso", 4),
                 (9, 1.60, 60.5, 1.50, "Acima do peso", 5),
                 (10, 1.60, 60.5, 1.50, "Obeso", 5)
-        `
+        `)
     } catch (error) {
         console.log("Não foi possível inserir as avaliações do usuário");
-        console.log(error);
     }
 
 }
@@ -49,13 +48,14 @@ export async function initInserirMedidas() {
 export async function selectMedidas(req, res) {
 
     const id = req.params.idUser;
+    console.log(id);
 
     try {
-        const medida = await db.get (
+        const medida = await db.all (
             `
                 SELECT * 
                 FROM avaliacoes
-                WHERE userId =?
+                WHERE userId = ?
             
             `,[id]);
 
@@ -68,6 +68,10 @@ export async function selectMedidas(req, res) {
         })
     } else {
         console.log("A avaliação foi encontrada:", medida);
+        
+        return res.json({
+            "statusCode":200
+        })
     }
     } catch (error) {
         console.log("Não foi possível encontrar a medida");
@@ -75,6 +79,33 @@ export async function selectMedidas(req, res) {
     }
 
 }
+
+export async function adicionarMedidas(req, res) {
+
+    const medida = req.body;
+
+    try {
+        await db.run(
+            `
+                INSERT INTO avaliacoes
+                (altura, peso, imc, resultado, userId)
+                VALUES
+                (?,?,?,?,?)
+            `
+        [medida.altura, medida.peso, medida.imc, medida.resultado, medida.userId]);
+
+        console.log("A medida foi adicionada com sucesso.", medida.imc);
+
+        res.json({
+            "statusCode": 200
+        })
+
+    } catch (error) {
+        console.log("Não foi possível adicionar o usuário");
+    }
+
+}
+
 
 export async function updateMedidas(req, res) {
 
