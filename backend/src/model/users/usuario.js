@@ -13,8 +13,7 @@ export async function createTableUsers() {
                 nome TEXT NOT NULL, 
                 sobrenome TEXT NOT NULL, 
                 email TEXT NOT NULL, 
-                password TEXT NOT NULL, 
-                password TEXT NOT NULL, 
+                password TEXT NOT NULL,
                 data_nascimento BLOB NOT NULL)
         `
     );
@@ -27,24 +26,25 @@ export async function initInserirUsuario() {
         await db.run(
             `
                 INSERT INTO users 
-                (idUser, username, nome, sobrenome, email, password, data_nascimento)
+                (username, nome, sobrenome, email, password, data_nascimento)
                 VALUES
-                    (1, "ADMIN", "João", "Marques", "joao.marques@gmail.com", "Paula1503@", "29/12/2003"),
-                    (2, "marcos henrique", "marcos.marques@gmail.com", "marcos1503", "15/03/1998"),
-                    (3, "Clovis Dantas", "clovis.dantas@gmail.com", "clovis1503", "20/03/2004"),
-                    (4, "Bambam", "Miguel", "Boca", "miguel.boca@gmail.com", "bambam1503", "20/03/2024"),
-                    (4, "Bambam", "Miguel", "Boca", "miguel.boca@gmail.com", "bambam1503", "20/03/2024");
+                    ( "ADMIN", "João", "Marques", "joao.marques@gmail.com", "Paula1503@", "29/12/2003"),
+                    ( "marcos", "marcos", "marques", "marcos.marques@gmail.com", "marcos1503", "15/03/1998"),
+                    ( "Clovis", "Clovis", "Dantas", "clovis.dantas@gmail.com", "clovis1503", "20/03/2004"),
+                    ( "Bambam", "Miguel", "Boca", "miguel.boca@gmail.com", "bambam1503", "20/03/2024"),
+                    ( "Bambam", "Miguel", "Boca", "miguel.boca@gmail.com", "bambam1503", "20/03/2024");
             `
         )
     } catch (error) {
         console.log("Não foi possível inserir o login dos usuários");
+        console.log(error);
     }
 
 }
 
 export async function selectUser (req, res) {
     
-    const id = req.paramns.idUser;
+    const id = req.params.idUser;
 
     try {
         const usuario = await db.get(
@@ -88,7 +88,7 @@ export async function adicionarUser (req, res) {
             `, [usuario.username, usuario.nome, usuario.sobrenome, usuario.email, usuario.password, usuario.data_nascimento]);
 
 
-        console.log("O usuario foi adiciona com sucesso", usuario.username);
+        console.log("O usuario foi adiciona com sucesso.", usuario.username);
 
         res.json({
             "statusCode": 200
