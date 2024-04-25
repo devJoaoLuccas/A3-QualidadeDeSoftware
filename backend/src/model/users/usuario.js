@@ -10,8 +10,6 @@ export async function createTableUsers() {
             CREATE TABLE IF NOT EXISTS users
                 (idUser INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
-                nome TEXT NOT NULL, 
-                sobrenome TEXT NOT NULL, 
                 email TEXT NOT NULL, 
                 password TEXT NOT NULL,
                 data_nascimento BLOB NOT NULL)
@@ -26,13 +24,13 @@ export async function initInserirUsuario() {
         await db.run(
             `
                 INSERT INTO users 
-                (idUser, username, nome, sobrenome, email, password, data_nascimento)
+                (idUser, username, email, password, data_nascimento)
                 VALUES
-                    (1, "ADMIN", "João", "Marques", "joao.marques@gmail.com", "Paula1503@", "29/12/2003"),
-                    (2, "marcos", "marcos", "marques", "marcos.marques@gmail.com", "marcos1503", "15/03/1998"),
-                    (3, "Clovis", "Clovis", "Dantas", "clovis.dantas@gmail.com", "clovis1503", "20/03/2004"),
-                    (4, "Bambam", "Miguel", "Boca", "miguel.boca@gmail.com", "bambam1503", "20/03/2024"),
-                    (5, "Bambam", "Miguel", "Boca", "miguel.boca@gmail.com", "bambam1503", "20/03/2024");
+                    (1, "ADMIN", "joao.marques@gmail.com", "Paula1503@", "29/12/2003"),
+                    (2, "marcos", "marcos.marques@gmail.com", "marcos1503", "15/03/1998"),
+                    (3, "Clovis", "clovis.dantas@gmail.com", "clovis1503", "20/03/2004"),
+                    (4, "Bambam", "miguel.boca@gmail.com", "bambam1503", "20/03/2024"),
+                    (5, "Bambam", "miguel.boca@gmail.com", "bambam1503", "20/03/2024");
             `
         )
     } catch (error) {
@@ -79,24 +77,66 @@ export async function adicionarUser (req, res) {
 
     const usuario = req.body;
 
-
     try {
-        await db.run(
+        const verificarEmail = await db.get(
             `
-                INSERT INTO users
-                (username, nome, sobrenome, email, password, data_nascimento)
-                VALUES 
-                (?,?,?,?,?,?)
-            `, [usuario.username, usuario.nome, usuario.sobrenome, usuario.email, usuario.password, usuario.data_nascimento]);
+                SELECT email
+                FROM users
+                WHERE email=?
+            `
+        ,[usuario.email]);
 
+        const verificarUsuario = await db.get(
+            `
+                SELECT username
+                FROM users
+                WHERE username=?
+            `
+        , [usuario.username]);
 
-        console.log("O usuario foi adiciona com sucesso.", usuario.username);
+        if(verificarEmail) {
+            res.json({
+                "statusCode":401
+            })
+            console.log("Não foi possivel cadastrar o usuário, o mesmo já tem um email cadastrado");
+        } else if (verificarUsuario) {
+            res.json({
+                "statusCode":410
+            })
+            console.log("Não foi possível cadastrar o usuário, o username já está cadastrado");
+        }   else {
+            await db.run(
+                `
+                    INSERT INTO users
+                    (username, email, password, data_nascimento)
+                    VALUES 
+                    (?,?,?,?)
+                `, [usuario.username, usuario.email, usuario.password, usuario.data_nascimento]);
+    
+    
+            console.log("O usuario foi adiciona com sucesso.", usuario.username);
+            console.log("o usuário", usuario.email);
+    
+            const id = await db.get(
+                `
+                    SELECT idUser
+                    FROM users
+                    WHERE username=?
+                `
+            ,[usuario.username]);
+    
+            res.json({
+                "statusCode": 200,
+                "idUser":id
+            })
+        }
 
-        res.json({
-            "statusCode": 200
-        })
     } catch (error) {
         console.log("Não foi possível adicionar o usuário");
+        res.json({
+            "statusCode":402,
+        })
+        console.log(error)
     }
 
 }
@@ -109,9 +149,9 @@ export async function updateUser(req, res) {
         await db.run(
             `
                 UPDATE users
-                SET username=?, nome=?, sobrenome=?, password=?, email=?
+                SET username=?, password=?, email=?
                 WHERE idUser=?
-            `, usuario.username, usuario.nome, usuario.sobrenome, usuario.password, usuario.email);
+            `, usuario.username, usuario.password, usuario.email);
 
         console.log(`O usuário foi atualizado com sucesso`, [usuario.username]);
 

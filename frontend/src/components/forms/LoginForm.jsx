@@ -13,7 +13,7 @@ function LoginForm() {
 
     const handleLogin = () => {
         if (username === "" || password === "") {
-            toast.error('Credenciais vazias, preencha os campos');
+            toast.error('{Credenciais vazias, preencha os campos}');
         } 
 
         if(username && password) {
