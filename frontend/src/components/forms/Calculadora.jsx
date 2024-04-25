@@ -40,6 +40,9 @@ function Calculadora() {
                     toast.success(`Imc calculado com sucesso, o resultado foi: ${imcFix}`);
                     return('/homepage');
                 })
+                .catch((error) => {
+                    console.log(error);
+                })
         
     }
 
