@@ -3,30 +3,55 @@ import {useNavigate} from 'react-router-dom';
 
 import styles from './Form.module.css';
 import { CalcularImc } from '../CalcFunctions/CalcularImc.jsx'
+import { toast } from 'react-toastify';
  
 function Calculadora() {
 
     const [peso, setPeso] = useState(0);
     const [altura, setAltura] = useState(0);
-    const [usuarioImc, setImc] = useState();
+    const [usuarioImc, setUsuarioImc] = useState();
     const [categoriaImc, setCategoriaImc] = useState('');
     const navigate = useNavigate();
 
+    const idUser = localStorage.getItem('userId');
+    const username = localStorage.getItem('username');
+
     const calcular = () => {
         const imc = CalcularImc(peso, altura)
+        const imcFix = imc.toFixed(2);
+        setUsuarioImc(imc);
         definirImc(imc);
-        setImc(imc);
+    
+            fetch('http://localhost:3000/adicionarMedidas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    altura: altura,
+                    peso: peso, 
+                    resultado: categoriaImc,
+                    imc: imcFix,
+                    userId: idUser,
+                })
+            })
+                .then(() => {
+                    console.log("Uma nova medida foi adicionada")
+                    toast.success(`Imc calculado com sucesso, o resultado foi: ${imcFix}`);
+                    return('/homepage');
+                })
+        
     }
 
     const definirImc = (imc) => {
         if (imc <= 18.5) {
-            setCategoriaImc('Abaixo do peso');
+            setCategoriaImc("Abaixo do peso");
         } else if (imc >= 18.5 && imc <= 24.9) {
-            setCategoriaImc('Peso Normal');
+            setCategoriaImc("Peso Normal");
         } else if (imc >= 25 && imc <= 29.9) {
-            setCategoriaImc('Sobrepeso');
+           setCategoriaImc("Sobrepeso")
         } else {
-            setCategoriaImc('Obeso');
+            setCategoriaImc("Obeso");
         }
     }
 
@@ -39,7 +64,7 @@ function Calculadora() {
             {categoriaImc ? 
             <p
                 className={styles.result_text}>
-                O imc do USERNAME é {usuarioImc.toFixed(2)} e ele é definido como  
+                O imc do {username} é {usuarioImc.toFixed(2)} e ele é definido como  
                   <span>
                      {categoriaImc}.       
                  </span>

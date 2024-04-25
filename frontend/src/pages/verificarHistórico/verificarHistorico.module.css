@@ -22,11 +22,12 @@
 .box {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     align-items: center;
 
     width: 40rem;
-    height: 35rem;
+    height: 65rem;
     padding: 2rem;
     
     background-color: #D3D3D3;

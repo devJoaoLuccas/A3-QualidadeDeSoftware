@@ -28,9 +28,6 @@ function HomepageMenus() {
                 onClick={verificarHistorico}>
                 Verificar Histórico
             </button>
-            <button>
-                Meu Perfil
-            </button>
             <button
                 onClick={logOff}>
                 Sair

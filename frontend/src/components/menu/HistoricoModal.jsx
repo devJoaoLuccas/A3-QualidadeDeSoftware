@@ -21,7 +21,7 @@ function HistoricoModal() {
 
 
     useEffect (() => {
-        fetch(`http://localhost:3000/medidas/3`, {
+        fetch(`http://localhost:3000/medidas/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

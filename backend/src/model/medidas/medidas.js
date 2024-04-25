@@ -69,9 +69,7 @@ export async function selectMedidas(req, res) {
     } else {
         console.log("A avaliação foi encontrada:", medida);
         
-        return res.json({
-            "statusCode":200
-        })
+        return res.json(medida)
     }
     } catch (error) {
         console.log("Não foi possível encontrar a medida");
@@ -91,7 +89,7 @@ export async function adicionarMedidas(req, res) {
                 (altura, peso, imc, resultado, userId)
                 VALUES
                 (?,?,?,?,?)
-            `
+            `,
         [medida.altura, medida.peso, medida.imc, medida.resultado, medida.userId]);
 
         console.log("A medida foi adicionada com sucesso.", medida.imc);
@@ -102,6 +100,7 @@ export async function adicionarMedidas(req, res) {
 
     } catch (error) {
         console.log("Não foi possível adicionar o usuário");
+        console.log(error);
     }
 
 }
