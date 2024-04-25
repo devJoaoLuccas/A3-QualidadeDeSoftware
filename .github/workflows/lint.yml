@@ -1,0 +1,25 @@
+name: Validate Commit Messages
+
+on: [pull_request]
+
+jobs:
+  check-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Necessário para acessar todos os commits para a PR
+
+      - name: Check Commit Messages
+        run: |
+          echo "Checking all commit messages..."
+          # Loop por todos os commits e verifica a mensagem usando grep e regex
+          git log origin/${{ github.base_ref }}..HEAD --pretty=format:%s | while read line 
+          do
+            if ! echo "$line" | grep -Pq "^((Merge[ a-z-]* branch.*)|(Revert*)|((build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.*\))?!?: .*))"; then
+              echo "Commit message does not follow the conventional commit style"
+              echo "Invalid commit message: '$line'"
+              exit 1
+            fi
+          done
