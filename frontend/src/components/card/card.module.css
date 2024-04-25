@@ -1,0 +1,39 @@
+* { 
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    font-size: 62.5%;
+}
+
+
+.card { 
+    background-color: #fff;
+    margin: 1rem;
+
+    width: 35rem;
+    height: 7rem;
+
+    border-radius: 2rem;
+}
+
+.card_details {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+
+    justify-content: space-around;
+    align-items: center;
+
+    font: 400 1.2rem "Gotham";
+}
+
+.card_details header {
+    display: flex;
+    flex-direction: column;
+}
+
+.card_details h2 {
+    color: red;
+}

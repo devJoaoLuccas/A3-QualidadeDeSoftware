@@ -4,6 +4,7 @@ import LoginPage from '../pages/Login/LoginPage';
 import SignUp from "../pages/SignUp/SignUp";
 import Homepage from "../pages/Homepage/Homepage";
 import CalculadoraImc from "../pages/Calculadora/CalculadoraImc";
+import VerificarHistórico from "../pages/verificarHistórico/verificarHistorico";
 
 export const routes = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ export const routes = createBrowserRouter([
     {
         path:"/homepage/calculadoraImc",
         element: <CalculadoraImc />,
+    },
+    {
+        path:"/homepage/historico",
+        element: <VerificarHistórico />,
     }
 ])
 

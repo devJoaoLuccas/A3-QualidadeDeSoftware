@@ -13,6 +13,10 @@ function HomepageMenus() {
     const logOff = () => {
         navigate('/');};
 
+    const verificarHistorico = () => {
+        navigate('/homepage/historico');
+    }
+
     return (
         <div
             className={styles.buttons_homepage}>
@@ -20,7 +24,8 @@ function HomepageMenus() {
                 onClick={calculadora}>
                 Calcular IMC
             </button>
-            <button>
+            <button
+                onClick={verificarHistorico}>
                 Verificar Histórico
             </button>
             <button>
