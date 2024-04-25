@@ -15,27 +15,9 @@ jest.mock('react-toastify', () => {
     }
 })
 
-jest.mock('react-router-dom', () => {
-    mockNavigate = jest.fn();
-    return {
-        ...jest.requireActual('react-router-dom'), // Importa todas as exportações reais
-        useNavigate: () => mockNavigate // Substitui useNavigate por uma função mock
-    };
-});
-
-global.localStorage = {
-    setItem: jest.fn(),
-    getItem: jest.fn(),
-    removeItem: jest.fn(),
-    clear: jest.fn(),
-}
 
 
 describe('HandleLogin Function', () => {
-
-    beforeEach(() => {
-        mockNavigate.mockClear();
-    });
 
 
     it('exibe um erro se as credenciais estiverem vazias', () => {

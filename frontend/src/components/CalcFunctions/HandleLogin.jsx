@@ -1,10 +1,6 @@
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom';
-
 
 function HandleLogin({username, password}) {
-
-    const navigate = useNavigate();
 
     if (username === "" || password === "") {
         toast.error('Credenciais vazias, preencha os campos');
@@ -31,15 +27,15 @@ function HandleLogin({username, password}) {
             .then((data) => {
                 if(data.statusCode === 200) {
                     toast.success("Login efetuado com sucesso!");
-                    navigate('/homepage')
+
                 }
                 else if (data.statusCode === 401) {
                     toast.error("Credenciais inválidas");
-                    navigate('/')
+
                 }
                 else if (data.statusCode === 500) {
                     toast.error("Não foi possível fazer login, erro interno do servidor");
-                    navigate('/')
+  
                 }
             })
             .catch((error) => {
