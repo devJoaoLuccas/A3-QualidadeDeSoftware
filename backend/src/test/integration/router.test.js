@@ -5,11 +5,12 @@ import { db } from "../dbMock";
 jest.mock('../dbMock.js')
 
 
-it("Should return user details when user is found", async () => {
+it("Deve encontrar o usuário na função SelectUser", async () => {
     db.get.mockResolvedValue({
         idUser: 1,
         username: "teste",
         email: "teste@example.com",
+        password:"senhaTeste",
         data_nascimento: "2000-01-01"
     });
 
@@ -18,10 +19,10 @@ it("Should return user details when user is found", async () => {
         .expect(200);
 
     expect(response.body).toEqual({
-        statusCode: 200,
         idUser: 1,
         username: "teste",
         email: "teste@example.com",
+        password:"senhaTeste",
         data_nascimento: "2000-01-01"
     });
 });
