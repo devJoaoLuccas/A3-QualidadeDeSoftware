@@ -1,11 +1,10 @@
 import { openDb } from '../../configDb.js';
 
-const db = await openDb();
+const db = openDb();
 
 export async function createTableUsers() {
 
-
-    await db.exec(
+    db.exec(
         `
             CREATE TABLE IF NOT EXISTS users
                 (idUser INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,7 +20,7 @@ export async function createTableUsers() {
 export async function initInserirUsuario() {
 
     try {
-        await db.run(
+        db.run(
             `
                 INSERT INTO users 
                 (idUser, username, email, password, data_nascimento)
@@ -41,6 +40,7 @@ export async function initInserirUsuario() {
 
 export async function selectUser (req, res) {
     
+
     const id = req.params.idUser;
 
     try {
@@ -68,17 +68,17 @@ export async function selectUser (req, res) {
         }
 
     } catch (error) {
-        console.log("Não foi possível encontrar o usuário");
+        console.log("Não foi possível encontrar o usuário", error);
+        return res.status(500)
     }
 
 }
 
 export async function adicionarUser (req, res) {
-
     const usuario = req.body;
 
     try {
-        const verificarEmail = await db.get(
+        const verificarEmail = db.get(
             `
                 SELECT email
                 FROM users
@@ -86,7 +86,7 @@ export async function adicionarUser (req, res) {
             `
         ,[usuario.email]);
 
-        const verificarUsuario = await db.get(
+        const verificarUsuario = db.get(
             `
                 SELECT username
                 FROM users
@@ -105,7 +105,7 @@ export async function adicionarUser (req, res) {
             })
             console.log("Não foi possível cadastrar o usuário, o username já está cadastrado");
         }   else {
-            await db.run(
+            db.run(
                 `
                     INSERT INTO users
                     (username, email, password, data_nascimento)
@@ -117,7 +117,7 @@ export async function adicionarUser (req, res) {
             console.log("O usuario foi adiciona com sucesso.", usuario.username);
             console.log("o usuário", usuario.email);
     
-            const id = await db.get(
+            const id = db.get(
                 `
                     SELECT idUser
                     FROM users
@@ -142,11 +142,10 @@ export async function adicionarUser (req, res) {
 }
 
 export async function updateUser(req, res) {
-
     const usuario = req.body;
 
     try {
-        await db.run(
+        db.run(
             `
                 UPDATE users
                 SET username=?, password=?, email=?
@@ -170,11 +169,10 @@ export async function updateUser(req, res) {
 
 
 export async function login (req, res) {
-
     const usuario = req.body;
 
     try {
-        const id = await db.get (
+        const id = db.get (
             `
                 SELECT idUser
                 FROM users
