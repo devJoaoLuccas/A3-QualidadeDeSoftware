@@ -1,11 +1,8 @@
 import { openDb } from "../../configDb.js";
 
-const db = await openDb();
-
-
 export async function createTableMedidas() {
 
-    await db.exec(
+    db.exec(
         `
             CREATE TABLE IF NOT EXISTS avaliacoes
                 (idMedidas INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,7 +20,7 @@ export async function createTableMedidas() {
 export async function initInserirMedidas() {
 
     try {
-        await db.run(`
+        db.run(`
             INSERT INTO avaliacoes
             (idMedidas, altura, peso, imc, resultado, userId)
             VALUES
@@ -51,7 +48,7 @@ export async function selectMedidas(req, res) {
     console.log(id);
 
     try {
-        const medida = await db.all (
+        const medida = db.all (
             `
                 SELECT * 
                 FROM avaliacoes
@@ -69,7 +66,10 @@ export async function selectMedidas(req, res) {
     } else {
         console.log("A avaliação foi encontrada:", medida);
         
-        return res.json(medida)
+        return res.json({
+            "statusCode":200,
+             medida
+        })
     }
     } catch (error) {
         console.log("Não foi possível encontrar a medida");
@@ -83,7 +83,7 @@ export async function adicionarMedidas(req, res) {
     const medida = req.body;
 
     try {
-        await db.run(
+         db.run(
             `
                 INSERT INTO avaliacoes
                 (altura, peso, imc, resultado, userId)
@@ -111,7 +111,7 @@ export async function updateMedidas(req, res) {
     const medida = req.body;
 
     try {
-        await db.run(
+        db.run(
             `
                 UPDATE avaliacoes
                 SET altura=?, peso=?, imc=?, resultado=?
