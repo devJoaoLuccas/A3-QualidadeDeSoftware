@@ -1,7 +1,5 @@
 import { openDb } from "../../configDb.js";
 
-const db = openDb();
-
 export async function createTableMedidas() {
 
     db.exec(
