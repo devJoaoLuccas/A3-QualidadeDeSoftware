@@ -30,14 +30,19 @@ export async function getId(username) {
 export async function verificacaoEmail(email) {
 
     const db = await openDb();
+    console.log('teste email', email)
 
-    return await db.get(
-        `
-            SELECT email
-            FROM users
-            WHERE email = ?
-        `
-    , [email]);
+    if(!email) {
+        return null
+    } else {
+        return await db.get(
+            `
+                SELECT email
+                FROM users
+                WHERE email = ?
+            `
+        , [email]);
+    }
 
 }
 
@@ -45,13 +50,17 @@ export async function verificacaoUsuario(usuario) {
 
     const db = await openDb();
 
-    return await db.get(
-        `
-            SELECT username
-            FROM users
-            WHERE username = ?
-        `
-    , [usuario]);
+    if (!usuario) {
+        return null
+    } else { 
+        return await db.get(
+            `
+                SELECT username
+                FROM users
+                WHERE username = ?
+            `
+        , [usuario]);
+    }
 
 }
 

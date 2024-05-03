@@ -3,35 +3,11 @@ import app from '../serverTest';
 import * as userControl from '../../controller/userController.js';
 import { openDb } from "../../configDb";
 
-jest.mock('../../configDb', () => {
-    openDb: jest.fn().mockResolvedValue({
-        get: jest.fn(),
-        run: jest.fn()
-    });
-})
-
-jest.mock('../../controller/userController.js', () => ({
-        getUser: jest.fn(),
-        getId: jest.fn(),
-        verificacaoEmail: jest.fn(),
-        verificacaoUsuario: jest.fn(),
-        inserirUsuario: jest.fn()        
-    })
-);
-
 
 describe('Teste de integração entre o Router e as suas funções', () => {
-    beforeEach(() => {
-            userControl.getUser.mockResolvedValue(null);
-            userControl.getId.mockResolvedValue(null);
-            userControl.verificacaoEmail.mockResolvedValue(null);
-            userControl.verificacaoUsuario.mockResolvedValue(null);
-            userControl.inserirUsuario.mockResolvedValue(null);
-    });
-
     const newUser = {
-        username: "newUser",
-        email: "new@example.com",
+        username: "newUser32",
+        email: "new@example.com32",
         password: "password123",
         data_nascimento: "1990-01-01"
     };
@@ -46,7 +22,7 @@ describe('Teste de integração entre o Router e as suas funções', () => {
 
 
     it('Retornar detalhes do usuario se ele existir', async () => {
-            userControl.getUser.mockResolvedValue(user);
+            userControl.getUser(user);
 
             const response = await request(app)
                 .get('/user/1');
@@ -58,9 +34,7 @@ describe('Teste de integração entre o Router e as suas funções', () => {
     });
 
     it('POST /adicionarUsuario should add a new user', async () => {
-        userControl.verificacaoEmail.mockResolvedValue(null);
-        userControl.verificacaoUsuario.mockResolvedValue(null);
-        userControl.inserirUsuario.mockResolvedValue(newUser);
+        userControl.inserirUsuario(newUser);
         
         const response = await request(app)
             .post('/adicionarUsuario')
