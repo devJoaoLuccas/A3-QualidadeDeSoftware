@@ -50,27 +50,21 @@ export async function initInserirMedidas() {
 export async function selectMedidas(req, res) {
 
     const id = req.params.idUser;
-    console.log(id);
 
     try {
         const verificarMedida =await getMedida(id);
-        console.log("Verificar medida = ", verificarMedida);
 
     if(!verificarMedida) {
-        console.log("A avaliação não foi encontrada.");
-
         return res.json({
             "statusCode":404,
         })
     } else {
-        console.log("A avaliação foi encontrada.");
         
         return res.json({
             "statusCode":200,
         })
     }
     } catch (error) {
-        console.log("Não foi possível encontrar a medida");
         console.log(error);
     }
 
@@ -83,16 +77,12 @@ export async function adicionarMedidas(req, res) {
     try {
          const verificaMedida = await adicionaMedida(medida.altura, medida.peso, medida.imc, medida.resultado, medida.userId);
 
-         console.log("Verifica medida é igual:", verificaMedida);
-
          if(!verificaMedida) {
-            console.log("A medida não foi adicionada");
             
             return res.json({
                 "statusCode": 410
             });
          } else {
-            console.log("A medida foi adicionada com sucesso.", medida.imc);
             
             return res.json({
                 "statusCode": 200
@@ -101,7 +91,6 @@ export async function adicionarMedidas(req, res) {
 
 
     } catch (error) {
-        console.log("Não foi possível adicionar o usuário");
         console.log(error);
     }
 

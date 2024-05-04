@@ -70,38 +70,29 @@ export async function adicionarUser (req, res) {
 
     try {
         const existeEmail = await verificacaoEmail(usuario.email);
-        console.log("Existe email?",existeEmail)
 
         const existeUsuario = await verificacaoUsuario(usuario.username);
-
-        console.log("Existe usuário?", existeUsuario)
 
         if(existeEmail) {
                 console.log("Não foi possivel cadastrar o usuário, o mesmo já tem um email cadastrado");
                 res.json({
                     'statusCode':401
                 })
-                console.log("passou o statuscode, email")
                 return
         } else if (existeUsuario) {
                 console.log("Não foi possível cadastrar o usuário, o username já está cadastrado");
                 res.json({
                     'statusCode':410
                 })
-                console.log("passou o statuscode, usuario")
                 return
         } else if (!existeEmail && !existeUsuario) {
                 await inserirUsuario(usuario.username, usuario.email, usuario.password, usuario.data_nascimento);
     
-                console.log("O usuario foi adicionado com sucesso.", usuario.username);
-                console.log("o usuário", usuario.username);
-    
-                // res.json({
-                //     'statusCode': 200,
-                //     'username': usuario.username
-                // });
+                res.json({
+                    'statusCode': 200,
+                    'username': usuario.username
+                });
                 
-                console.log("passou o statuscode, adicionar usuario")
                 return
         }
 
@@ -123,17 +114,13 @@ export async function login (req, res) {
     try {
         const id = await getId(usuario.email, usuario.password);
 
-        console.log("O id recebido foi: ", id);
-
         if(!id) {
             console.log("Não foi possível realizar o login, credenciais inválidas");
-
             return res.json({
                 "statusCode":401,
             })
         } else {
             console.log("Login efetuado com sucesso, o id selecionado foi o ", id.idUser);
-
             return res.json({
                 "statusCode":200,
             })
