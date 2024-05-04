@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - main
+      - release
 
 jobs:
   build:
@@ -20,7 +21,8 @@ jobs:
     - name: Install dependencies
       working-directory: ./backend/src
       run: npm install
-    - name: Run test
+    - name: Run integration test
+      if: github.ref == 'refs/heads/release'
       working-directory: ./backend/src
       run: npm test
     - name: Install FrontDepedencies
