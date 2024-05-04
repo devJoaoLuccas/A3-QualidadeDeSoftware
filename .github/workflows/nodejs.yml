@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -20,9 +20,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd /frontend/src && npm install
-    - run: cd /backend/src && npm install 
-    - run: cd /frontend/src && npm test
-    - run: cd /backend/src/ && npm test
+    - run: cd .\frontend\src\ && npm install
+    - run: cd .\backend\src\ && npm install 
+    - run: cd .\frontend\src\ && npm test
+    - run: cd .\backend\src\ && npm test
       env:
         CI: true
