@@ -21,8 +21,8 @@ app.use(router);
 
 initBanco();
 
-await initInserirUsuario();
-await initInserirMedidas();
+initInserirUsuario();
+initInserirMedidas();
 
 app.listen(3000, () => {
     console.log('A api está ouvindo na porta 3000')
