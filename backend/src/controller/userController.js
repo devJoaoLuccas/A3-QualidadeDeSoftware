@@ -85,6 +85,7 @@ export async function verificacaoUsuario(usuario) {
 
 export async function inserirUsuario(username, email, password, data_nascimento) {
 
+    const db = await openDb();
 
     return await db.run(
         `
