@@ -1,72 +1,107 @@
-import { openDb } from "../configDb";
+import { openDb } from "../configDb.js";
 
 export async function getUser(id) {
-    
+    console.log("O Id recebido foi:", id);
+
+
     const db = await openDb();
-    
-    return await db.get(
+
+
+    const idUser = await db.get(
         `
             SELECT *
             FROM users
             WHERE idUser = ?
         `
         , [id]);
+
+    console.log("idUser =", idUser);
+
+    if(idUser === undefined) {
+        console.log("O usuário não existe");
+        return false
+    } else {
+        console.log("O usuário existe");
+        return true
+    }
         
 }
     
-export async function getId(username) {
-    
+export async function getId( email, password) {
+    console.log("Verificar username:", email, password);
+
     const db = await openDb();
-    
-    return await db.get(
+
+    const verificaId = await db.get (
         `
-            SELETC idUser
+            SELECT idUser
             FROM users
-            WHERE username = ?
+            WHERE email= ? AND password= ?
         `
-    , [username]);    
+        ,[email, password]
+    );
+    
+    console.log("Verifica id:", verificaId);
+
+    if(verificaId === undefined) {
+        console.log("O id não existe");
+        return false
+    } else {
+        console.log("O id existe");
+        return true
+    }
+  
 }
 
 export async function verificacaoEmail(email) {
+    console.log('Verifica o email que está chegando:', email)
 
     const db = await openDb();
-    console.log('teste email', email)
 
-    if(!email) {
-        return null
+    const verificarEmail = await db.get(
+        `
+            SELECT email
+            FROM users
+            WHERE email = ?
+        `
+    , [email]);
+
+    console.log('Verificar email: ', verificarEmail)
+
+    if(verificarEmail === undefined) {
+        console.log("O email não existe");
+        return false;
     } else {
-        return await db.get(
-            `
-                SELECT email
-                FROM users
-                WHERE email = ?
-            `
-        , [email]);
+        console.log("O email existe");
+        return true;
     }
-
 }
 
 export async function verificacaoUsuario(usuario) {
+    console.log('Verifica o usuário que chegou:', usuario)
 
     const db = await openDb();
 
-    if (!usuario) {
-        return null
+    const verificarUsuario = await db.get(
+        `
+            SELECT username
+            FROM users
+            WHERE username = ?
+        `
+    , [usuario]);
+
+    console.log('Verificar função usuario:', verificarUsuario);
+
+    if (verificarUsuario === undefined) {
+        return false;
     } else { 
-        return await db.get(
-            `
-                SELECT username
-                FROM users
-                WHERE username = ?
-            `
-        , [usuario]);
+        return true;
     }
 
 }
 
 export async function inserirUsuario(username, email, password, data_nascimento) {
 
-    const db = await openDb();
 
     return await db.run(
         `
