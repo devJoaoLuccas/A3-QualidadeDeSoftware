@@ -20,7 +20,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: cd .\frontend\ && npm run test
+    - run: cd /frontend/src && npm install
+    - run: cd /backend/src && npm install 
+    - run: cd /frontend/src && npm test
+    - run: cd /backend/src/ && npm test
       env:
         CI: true
