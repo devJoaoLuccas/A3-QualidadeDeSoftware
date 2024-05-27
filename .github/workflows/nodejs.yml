@@ -35,5 +35,6 @@ jobs:
     - name: SonarQube Scan
       uses: sonarsource/sonarqube-scan-action@master
       env:
-        SONAR_TOKEN: sqp_85c24035b5ce7318ad16ee678917b49627bfa89f
+        SONAR_TOKEN: sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
         SONAR_HOST_URL: https://f1ed-187-44-172-38.ngrok-free.app
+        sonar.projetctKey: Unknown
