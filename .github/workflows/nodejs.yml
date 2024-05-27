@@ -38,7 +38,7 @@ jobs:
         SONAR_TOKEN: sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
       with:
         args: >
-        -Dsonar.projectKey=a3-qualidade-de-software
+        -Dsonar.projectKey=Unknown
         -Dsonar.sources=./backend/src,./frontend/src
         -Dsonar.host.url=https://f1ed-187-44-172-38.ngrok-free.app
         -Dsonar.login=sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
