@@ -8,14 +8,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [20.x]
 
-      
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
@@ -30,3 +28,7 @@ jobs:
     - name: Testes unitários front
       working-directory: ./frontend/src
       run: npm test
+    -uses: sonarsouce/sonarqube-scan-action@master
+     env:
+        SONAR_TOKEN: sqp_85c24035b5ce7318ad16ee678917b49627bfa89f
+        SONAR_HOST_URL: http://localhost:9000/
