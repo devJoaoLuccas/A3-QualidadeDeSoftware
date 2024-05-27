@@ -19,16 +19,21 @@ jobs:
     - name: Install dependencies
       working-directory: ./backend/src
       run: npm install
+      
     - name: Run test
       working-directory: ./backend/src
       run: npm test
+
     - name: Install FrontDepedencies
       working-directory: ./frontend/src
       run: npm install
+
     - name: Testes unitários front
       working-directory: ./frontend/src
       run: npm test
-    - uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: sqp_85c24035b5ce7318ad16ee678917b49627bfa89f
-          SONAR_HOST_URL: http://localhost:9000/
+
+    - name: SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@master
+      env:
+        SONAR_TOKEN: sqp_85c24035b5ce7318ad16ee678917b49627bfa89f
+        SONAR_HOST_URL: http://localhost:9000/
