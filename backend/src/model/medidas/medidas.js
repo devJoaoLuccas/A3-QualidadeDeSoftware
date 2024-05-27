@@ -1,7 +1,9 @@
 import { openDb } from "../../configDb.js";
+import { adicionaMedida, getMedida } from "../../controller/medidasController.js";
 
-const db = await openDb();
-
+const db = async () => {
+    return await openDb()
+}
 
 export async function createTableMedidas() {
 
@@ -48,31 +50,21 @@ export async function initInserirMedidas() {
 export async function selectMedidas(req, res) {
 
     const id = req.params.idUser;
-    console.log(id);
 
     try {
-        const medida = await db.all (
-            `
-                SELECT * 
-                FROM avaliacoes
-                WHERE userId = ?
-            
-            `,[id]);
+        const verificarMedida =await getMedida(id);
 
-    if(!medida) {
-        console.log("A avaliação não foi encontrada:", id);
-
+    if(!verificarMedida) {
         return res.json({
             "statusCode":404,
-            error:"Usuário não foi encontrado"
         })
     } else {
-        console.log("A avaliação foi encontrada:", medida);
         
-        return res.json(medida)
+        return res.json({
+            "statusCode":200,
+        })
     }
     } catch (error) {
-        console.log("Não foi possível encontrar a medida");
         console.log(error);
     }
 
@@ -83,53 +75,23 @@ export async function adicionarMedidas(req, res) {
     const medida = req.body;
 
     try {
-        await db.run(
-            `
-                INSERT INTO avaliacoes
-                (altura, peso, imc, resultado, userId)
-                VALUES
-                (?,?,?,?,?)
-            `,
-        [medida.altura, medida.peso, medida.imc, medida.resultado, medida.userId]);
+         const verificaMedida = await adicionaMedida(medida.altura, medida.peso, medida.imc, medida.resultado, medida.userId);
 
-        console.log("A medida foi adicionada com sucesso.", medida.imc);
+         if(!verificaMedida) {
+            
+            return res.json({
+                "statusCode": 410
+            });
+         } else {
+            
+            return res.json({
+                "statusCode": 200
+            })
+         }
 
-        res.json({
-            "statusCode": 200
-        })
 
     } catch (error) {
-        console.log("Não foi possível adicionar o usuário");
         console.log(error);
     }
 
-}
-
-
-export async function updateMedidas(req, res) {
-
-    const medida = req.body;
-
-    try {
-        await db.run(
-            `
-                UPDATE avaliacoes
-                SET altura=?, peso=?, imc=?, resultado=?
-                WHERE idMedidas=?
-            `
-        , medida.altura, medida.peso, medida.imc, medida.resultado, medida.idMedidas);
-
-        console.log(`A medida foi atualizada com sucesso:`, [medida.idMedidas]);
-
-        res.json({
-            "statusCode":200
-        })
-
-    } catch (error) {
-        res.json({
-            "statusCode":401
-        })
-
-        console.log("Não foi possível atualizar a medida", [medida.idMedidas]);
-    }
 }

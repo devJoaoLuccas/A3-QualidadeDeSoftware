@@ -1,9 +1,8 @@
 import { openDb } from '../../configDb.js';
+import { getId, getUser, inserirUsuario, verificacaoEmail, verificacaoUsuario } from '../../controller/userController.js';
 
-const db = await openDb();
 
 export async function createTableUsers() {
-
 
     await db.exec(
         `
@@ -40,162 +39,90 @@ export async function initInserirUsuario() {
 }
 
 export async function selectUser (req, res) {
-    
+
     const id = req.params.idUser;
 
     try {
-        const usuario = await db.get(
-            `
-                SELECT *
-                FROM users
-                WHERE idUser = ?
-            `
-        ,[id]);
+        const usuario = await getUser(id);
 
         if(!usuario) {
-            console.log("O usuário não foi encontrado:", id);
+            console.log("O usuário não foi encontrado");
 
             return res.json({
-                "statusCode":404,
-                error:"Usuário não encontrado"
+                "statusCode": 404
             })
 
         } else {
             console.log('O usuário foi encontrado: ', usuario);
-            return res.json({
-                "statusCode":200
-            })
+                return res.json({
+                    "statusCode":200
+                })
         }
-
     } catch (error) {
-        console.log("Não foi possível encontrar o usuário");
+        console.log("Não foi possível encontrar o usuário", error);
+        return res.status(500);
     }
 
 }
 
 export async function adicionarUser (req, res) {
-
     const usuario = req.body;
 
     try {
-        const verificarEmail = await db.get(
-            `
-                SELECT email
-                FROM users
-                WHERE email=?
-            `
-        ,[usuario.email]);
+        const existeEmail = await verificacaoEmail(usuario.email);
 
-        const verificarUsuario = await db.get(
-            `
-                SELECT username
-                FROM users
-                WHERE username=?
-            `
-        , [usuario.username]);
+        const existeUsuario = await verificacaoUsuario(usuario.username);
 
-        if(verificarEmail) {
-            res.json({
-                "statusCode":401
-            })
-            console.log("Não foi possivel cadastrar o usuário, o mesmo já tem um email cadastrado");
-        } else if (verificarUsuario) {
-            res.json({
-                "statusCode":410
-            })
-            console.log("Não foi possível cadastrar o usuário, o username já está cadastrado");
-        }   else {
-            await db.run(
-                `
-                    INSERT INTO users
-                    (username, email, password, data_nascimento)
-                    VALUES 
-                    (?,?,?,?)
-                `, [usuario.username, usuario.email, usuario.password, usuario.data_nascimento]);
+        if(existeEmail) {
+                console.log("Não foi possivel cadastrar o usuário, o mesmo já tem um email cadastrado");
+                res.json({
+                    'statusCode':401
+                })
+                return
+        } else if (existeUsuario) {
+                console.log("Não foi possível cadastrar o usuário, o username já está cadastrado");
+                res.json({
+                    'statusCode':410
+                })
+                return
+        } else if (!existeEmail && !existeUsuario) {
+                await inserirUsuario(usuario.username, usuario.email, usuario.password, usuario.data_nascimento);
     
-    
-            console.log("O usuario foi adiciona com sucesso.", usuario.username);
-            console.log("o usuário", usuario.email);
-    
-            const id = await db.get(
-                `
-                    SELECT idUser
-                    FROM users
-                    WHERE username=?
-                `
-            ,[usuario.username]);
-    
-            res.json({
-                "statusCode": 200,
-                "idUser":id
-            })
+                res.json({
+                    'statusCode': 200,
+                    'username': usuario.username
+                });
+                
+                return
         }
 
     } catch (error) {
-        console.log("Não foi possível adicionar o usuário");
+        console.log("Não foi possível adicionar o usuário", error);
+
         res.json({
             "statusCode":402,
-        })
+        });
+
         console.log(error)
     }
 
 }
 
-export async function updateUser(req, res) {
-
-    const usuario = req.body;
-
-    try {
-        await db.run(
-            `
-                UPDATE users
-                SET username=?, password=?, email=?
-                WHERE idUser=?
-            `, usuario.username, usuario.password, usuario.email);
-
-        console.log(`O usuário foi atualizado com sucesso`, [usuario.username]);
-
-            res.json({
-                "statusCode":200
-            });
-    } catch (error) {
-        res.json({
-            "statusCode": 401
-        })
-
-        console.log("Não foi possível atualizar o usuário");
-    }
-
-}
-
-
 export async function login (req, res) {
-
     const usuario = req.body;
 
     try {
-        const id = await db.get (
-            `
-                SELECT idUser
-                FROM users
-                WHERE (email=? OR username=?) AND password=?
-            `
-        ,[usuario.username, usuario.username, usuario.password]);
+        const id = await getId(usuario.email, usuario.password);
 
         if(!id) {
             console.log("Não foi possível realizar o login, credenciais inválidas");
-
-            res.json({
+            return res.json({
                 "statusCode":401,
-                "message":"Credenciais Inválidas"
             })
         } else {
             console.log("Login efetuado com sucesso, o id selecionado foi o ", id.idUser);
-
-            res.json({
+            return res.json({
                 "statusCode":200,
-                "idUser": id.idUser,
-                "username":usuario.username
             })
 
         }
