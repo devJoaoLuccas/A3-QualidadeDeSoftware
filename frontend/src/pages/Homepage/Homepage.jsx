@@ -2,7 +2,6 @@ import styles from './Homepage.module.css'
 
 import HomepageMenus from "../../components/menu/HomepageMenus";
 import Header from '../../components/menu/Header';
-import { useEffect } from 'react';
 
 function Homepage() {
 

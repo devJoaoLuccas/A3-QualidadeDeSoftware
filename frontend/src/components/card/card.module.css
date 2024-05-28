@@ -26,7 +26,8 @@
     justify-content: space-around;
     align-items: center;
 
-    font: 400 1.2rem "Gotham";
+    font: 400 1.2rem;
+    font-family: 'Gotham';
 }
 
 .card_details header {

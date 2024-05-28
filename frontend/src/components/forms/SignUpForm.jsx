@@ -74,7 +74,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    id="username">
+                    for='username'>
                         Nome de Usuário
                 </label>
                 <div
@@ -88,7 +88,7 @@ function SignUpForm() {
                     <input 
                         className={styles.input}
                         type="text" 
-                        id="username"
+                        id='username'
                         onChange={((e) => setUsername(e.target.value))}
                         required/>
                 </div>
@@ -97,7 +97,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    id="email">
+                    for='email'>
                         Email
                 </label>
                 <div
@@ -111,7 +111,7 @@ function SignUpForm() {
                     <input 
                         className={styles.input}
                         type="email"
-                        id="email"
+                        id='email'
                         onChange={((e) => setEmail(e.target.value))} 
                         required/>
                 </div>
@@ -120,7 +120,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    id="confirmEmail">
+                    for='confirmEmail'>
                         Confirme o Email
                 </label>
                 <div
@@ -134,7 +134,7 @@ function SignUpForm() {
                     <input 
                         className={styles.input}
                         type="email" 
-                        id="birthdayDate"
+                        id='confirmEmail'
                         onChange={((e) => setConfirmEmail(e.target.value))}
                         required/>
                 </div>
@@ -143,7 +143,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    id="birthdayDate">
+                    for='birthdayDate'>
                          Data de Nascimento
                 </label>
                 <div
@@ -157,7 +157,7 @@ function SignUpForm() {
                     <input 
                         className={styles.input}
                         type="date" 
-                        id="birthdayDate"
+                        id='birthdayDate'
                         onChange={((e) => setDataNascimento(e.target.value))}
                         required/>
                 </div>
@@ -166,7 +166,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    id="password">
+                    for='password'>
                          Senha
                 </label>
                 <div
@@ -180,7 +180,7 @@ function SignUpForm() {
                     <input 
                         className={styles.input}
                         type="password" 
-                        id="password"
+                        id='password'
                         onChange={((e) => setPassword(e.target.value))}
                         required/>
                 </div>
