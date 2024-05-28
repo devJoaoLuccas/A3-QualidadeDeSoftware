@@ -27,7 +27,7 @@
     align-items: center;
 
     font: 400 1.2rem;
-    font-family: 'Gotham';
+    font-family: 'Gotham', sans-serif;
 }
 
 .card_details header {
