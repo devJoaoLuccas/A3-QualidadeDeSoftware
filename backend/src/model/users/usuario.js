@@ -82,7 +82,7 @@ export async function adicionarUser (req, res) {
         } else if (existeUsuario) {
                 console.log("Não foi possível cadastrar o usuário, o username já está cadastrado");
                 res.json({
-                    'statusCode':410
+                    'statusCode':410clear
                 })
                 return
         } else if (!existeEmail && !existeUsuario) {
