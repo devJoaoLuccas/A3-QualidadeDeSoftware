@@ -28,7 +28,7 @@ function HistoricoCard({medidas}) {
 }
 
 HisotricoCard.propTypes = {
-    medidas: PropTypes.object
+    medidas: PropTypes.object.isRequired
 }
 
 

@@ -78,7 +78,7 @@ function Calculadora() {
             className={styles.input_box}>
             <label
                 className={styles.label} 
-                for='altura'>
+                htmlFor='altura'>
                     Altura (Metros²)
             </label>
             <div
@@ -100,7 +100,7 @@ function Calculadora() {
             className={styles.input_box}>
             <label
                 className={styles.label} 
-                for='peso'>
+                htmlFor='peso'>
                     Peso (KG)
             </label>
             <div

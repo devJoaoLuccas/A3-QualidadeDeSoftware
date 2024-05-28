@@ -7,7 +7,6 @@ function LoginPage() {
 
 
     return (
-        <>
             <main>
                 <section
                      className={styles.screen}>
@@ -20,7 +19,6 @@ function LoginPage() {
                     </article>
                 </section>
             </main>
-        </>
     )
 
 }

@@ -74,7 +74,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    for='username'>
+                    htmlFor='username'>
                         Nome de Usuário
                 </label>
                 <div
@@ -97,7 +97,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    for='email'>
+                    htmlFor='email'>
                         Email
                 </label>
                 <div
@@ -120,7 +120,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    for='confirmEmail'>
+                    htmlFor='confirmEmail'>
                         Confirme o Email
                 </label>
                 <div
@@ -143,7 +143,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    for='birthdayDate'>
+                    htmlFor='birthdayDate'>
                          Data de Nascimento
                 </label>
                 <div
@@ -166,7 +166,7 @@ function SignUpForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    for='password'>
+                    htmlFor='password'>
                          Senha
                 </label>
                 <div

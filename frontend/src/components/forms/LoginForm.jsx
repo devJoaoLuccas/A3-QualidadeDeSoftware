@@ -61,7 +61,7 @@ function LoginForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    for='username'>
+                    htmlFor='username'>
                         Nome de Usuário
                 </label>
                 <div
@@ -83,7 +83,7 @@ function LoginForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    for='password'>
+                    htmlFor='password'>
                         Senha
                 </label>
                 <div
