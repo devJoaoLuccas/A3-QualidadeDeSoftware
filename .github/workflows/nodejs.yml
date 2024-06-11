@@ -5,6 +5,7 @@
       branches:
         - develop
         - main
+        - release
 
   jobs:
     build:
@@ -16,11 +17,13 @@
 
       steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
+      - name: Install Backend dependencies
+        if: github.ref == 'refs/heads/release'
         working-directory: ./backend/src
         run: npm install
 
-      - name: Run test
+      - name: Testes de integração
+        if: github.ref == 'refs/heads/release'
         working-directory: ./backend/src
         run: npm test
 
@@ -28,11 +31,12 @@
         working-directory: ./frontend/src
         run: npm install
 
-      - name: Testes unitários front
+      - name: Testes unitários 
         working-directory: ./frontend/src
         run: npm test
 
       - name: SonarQube Scan
+        if: github.ref == 'refs/heads/release'
         uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
