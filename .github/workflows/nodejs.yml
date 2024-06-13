@@ -42,6 +42,6 @@
           SONAR_TOKEN: squ_e2ef3d6935b69ef15d70974f805d308d35aa3600
         with:
           args: >
-            -Dsonar.projectKey=a3-qualidade-de-software
+            -Dsonar.projectKey=a3-qualidade-de-software-v1
             -Dsonar.sources=./backend/src,./frontend/src
             -Dsonar.host.url=https://7c29-187-44-172-38.ngrok-free.app 
