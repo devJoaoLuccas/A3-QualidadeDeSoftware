@@ -5,6 +5,7 @@
       branches:
         - develop
         - main
+        - release
 
   jobs:
     build:
@@ -16,11 +17,13 @@
 
       steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
+      - name: Install Backend dependencies
+        if: github.ref == 'refs/heads/release'
         working-directory: ./backend/src
         run: npm install
 
-      - name: Run test
+      - name: Testes de integração
+        if: github.ref == 'refs/heads/release'
         working-directory: ./backend/src
         run: npm test
 
@@ -28,17 +31,27 @@
         working-directory: ./frontend/src
         run: npm install
 
-      - name: Testes unitários front
+      - name: Testes unitários 
         working-directory: ./frontend/src
         run: npm test
 
       - name: SonarQube Scan
+        if: github.ref == 'refs/heads/release'
         uses: sonarsource/sonarqube-scan-action@master
         env:
-          SONAR_TOKEN: sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=a3-qualidade-de-software
+            -Dsonar.projectKey=${{ secrets.SONAR_KEYNAME }}
             -Dsonar.sources=./backend/src,./frontend/src
-            -Dsonar.host.url=https://f1ed-187-44-172-38.ngrok-free.app
-            -Dsonar.login=$sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
+            -Dsonar.host.url=${{ secrets.SONAR_URL }}
+            -Dsonar.login=${{ secrets.SONAR_LOGIN }}
+
+      - name: Enviar relatórios FTP
+        if: github.ref == 'refs/heads/release'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+              server: ${{ secrets.FPT_HOST }}
+              username: ${{ secrets.FPT_USERNAME}}
+              password: ${{ secrets.FPT_PASSWORD }}
+              local-dir: ./A3-QUALIDADEDESOFTWARE 
