@@ -5,8 +5,8 @@ import { createTableUsers, initInserirUsuario } from "./users/usuario.js";
 export async function initBanco() {
 
     try {
-        createTableUsers();
-        createTableMedidas();
+        await createTableUsers();
+        await createTableMedidas();
     } catch {
         console.log("Não foi possível criar as tabelas");
     }
