@@ -1,5 +1,5 @@
 import { openDb } from "../configDb";
-import { getId, getUser } from "./userController";
+import { getUser } from "./userController";
 
 export async function getMedida(idUser) {
 

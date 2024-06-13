@@ -1,5 +1,5 @@
-import { createTableMedidas, initInserirMedidas } from "./medidas/medidas.js";
-import { createTableUsers, initInserirUsuario } from "./users/usuario.js";
+import { createTableMedidas } from "./medidas/medidas.js";
+import { createTableUsers } from "./users/usuario.js";
 
 
 export async function initBanco() {
