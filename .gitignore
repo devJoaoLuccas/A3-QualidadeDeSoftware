@@ -120,3 +120,4 @@ dist
 .pnp.*
 
 A3-QUALIDADEDESOFTWARE
+backend\src\coverage
