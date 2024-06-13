@@ -44,4 +44,4 @@
           args: >
             -Dsonar.projectKey=a3-qualidade-de-software
             -Dsonar.sources=./backend/src,./frontend/src
-            -Dsonar.host.url=https://75cf-187-44-172-38.ngrok-free.app
+            -Dsonar.host.url=https://7c29-187-44-172-38.ngrok-free.app 
