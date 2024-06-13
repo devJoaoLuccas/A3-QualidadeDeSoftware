@@ -39,16 +39,15 @@
         if: github.ref == 'refs/heads/release'
         uses: sonarsource/sonarqube-scan-action@master
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
         with:
           args: >
             -Dsonar.projectKey=a3-qualidade-de-software
             -Dsonar.sources=./backend/src,./frontend/src
-            -Dsonar.host.url=https://f1ed-187-44-172-38.ngrok-free.app
-            -Dsonar.token=$sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
+            -Dsonar.host.url=https://75cf-187-44-172-38.ngrok-free.app
+            -Dsonar.login=$sqp_667b9da7edb3cf4de01151d6611a13bb75cf21b6
 
       - name: Enviar relatórios FTP
-        if: github.ref == 'refs/heads/release'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
               server: joaobsjunior.com.br
