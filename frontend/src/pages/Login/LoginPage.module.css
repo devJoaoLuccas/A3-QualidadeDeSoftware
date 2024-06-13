@@ -49,5 +49,6 @@ header {
 }
 
 header h1 {
-    font: 400 2rem "Gotham";
+    font: 400 2rem;
+    font-family: "Gotham", sans-serif;
 }

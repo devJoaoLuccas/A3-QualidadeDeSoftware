@@ -19,7 +19,9 @@
 
 .buttons_homepage button {
     flex-grow: 1;
-    font: 400 2rem "Gotham";
+    font: 400 2rem;
+    font-family: "Gotham", sans-serif;
+
     background: transparent;
 
     border: 0.2rem solid #000;
@@ -38,7 +40,8 @@
 }
 
 .button {
-    font: 400 2rem "Gotham";
+    font: 400 2rem;
+    font-family: "Gotham", sans-serif;
     background: transparent;
 
     border: 0.2rem solid #000;

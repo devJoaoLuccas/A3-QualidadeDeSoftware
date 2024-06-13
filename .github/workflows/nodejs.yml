@@ -1,20 +1,30 @@
-name: PIPELINE
+  name: Node.js CI
 
+<<<<<<< HEAD
 on:
   push:
     branches:
       - develop
       - main
       - release
+=======
+  on:
+    push:
+      branches:
+        - develop
+        - main
+        - release
+>>>>>>> develop
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+  jobs:
+    build:
+      runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
+      strategy:
+        matrix:
+          node-version: [20.x]
 
+<<<<<<< HEAD
       
     steps:
     - uses: actions/checkout@v2
@@ -31,3 +41,45 @@ jobs:
     - name: Testes unitários front
       working-directory: ./frontend/src
       run: npm test
+=======
+      steps:
+      - uses: actions/checkout@v2
+      - name: Install Backend dependencies
+        if: github.ref == 'refs/heads/release'
+        working-directory: ./backend/src
+        run: npm install
+
+      - name: Testes de integração
+        if: github.ref == 'refs/heads/release'
+        working-directory: ./backend/src
+        run: npm test
+
+      - name: Install FrontDepedencies
+        working-directory: ./frontend/src
+        run: npm install
+
+      - name: Testes unitários 
+        working-directory: ./frontend/src
+        run: npm test
+
+      - name: SonarQube Scan
+        if: github.ref == 'refs/heads/release'
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_KEYNAME }}
+            -Dsonar.sources=./backend/src,./frontend/src
+            -Dsonar.host.url=${{ secrets.SONAR_URL }}
+            -Dsonar.login=${{ secrets.SONAR_LOGIN }}
+
+      - name: Enviar relatórios FTP
+        if: github.ref == 'refs/heads/release'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+              server: ${{ secrets.FPT_HOST }}
+              username: ${{ secrets.FPT_USERNAME}}
+              password: ${{ secrets.FPT_PASSWORD }}
+              local-dir: ./A3-QUALIDADEDESOFTWARE 
+>>>>>>> develop

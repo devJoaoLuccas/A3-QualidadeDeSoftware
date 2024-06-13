@@ -1,7 +1,6 @@
 import HandleLogin from "./HandleLogin";
 
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import fetchMock from "jest-fetch-mock";
 
 fetchMock.enableMocks();

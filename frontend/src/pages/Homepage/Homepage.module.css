@@ -38,5 +38,6 @@
 }
 
 .footer p {
-    font: 400 1.5rem "Gotham";
-}
+    font: 400 1.5rem;
+    font-family: "Gotham", sans-serif;
+} 

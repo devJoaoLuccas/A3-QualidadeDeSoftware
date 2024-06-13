@@ -1,5 +1,5 @@
-import styles from './card.module.css'
-
+import styles from './card.module.css';
+import PropTypes from 'prop-types';
 
 function HistoricoCard({medidas}) {
 
@@ -23,12 +23,13 @@ function HistoricoCard({medidas}) {
                     </div>
                 </div>
         ))}
-        
         </>
     )
-
 }
 
+HistoricoCard.propTypes = {
+    medidas: PropTypes.object.isRequired
+}
 
 
 

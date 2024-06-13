@@ -1,8 +1,6 @@
 import styles from './CalculadoraImc.module.css'
 
 import Calculadora from '../../components/forms/Calculadora.jsx';
-import Header from '../../components/menu/Header.jsx';
-
 
 function CalculadoraImc() {
 

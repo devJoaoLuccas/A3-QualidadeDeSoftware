@@ -61,7 +61,7 @@ function LoginForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    id="username">
+                    htmlFor='username'>
                         Nome de Usuário
                 </label>
                 <div
@@ -74,7 +74,8 @@ function LoginForm() {
                     </div>
                     <input 
                         className={styles.input}
-                        type="text" 
+                        type="text"
+                        id='username'
                         onChange={(e) => setUsername(e.target.value)}/>
                 </div>
             </div>
@@ -82,7 +83,7 @@ function LoginForm() {
                 className={styles.input_box}>
                 <label
                     className={styles.label} 
-                    id="username">
+                    htmlFor='password'>
                         Senha
                 </label>
                 <div
@@ -95,6 +96,7 @@ function LoginForm() {
                     </div>
                     <input 
                         className={styles.input}
+                        id='password'
                         type="password" 
                         onChange={(e) => setPassword(e.target.value)}/>
                 </div>

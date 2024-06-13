@@ -64,7 +64,7 @@ function Calculadora() {
     return (
         <>
         <div>
-            {categoriaImc ? 
+            {categoriaImc && usuarioImc ?
             <p
                 className={styles.result_text}>
                 O imc do {username} é {usuarioImc.toFixed(2)} e ele é definido como  
@@ -78,7 +78,7 @@ function Calculadora() {
             className={styles.input_box}>
             <label
                 className={styles.label} 
-                id="altura">
+                htmlFor='altura'>
                     Altura (Metros²)
             </label>
             <div
@@ -100,7 +100,7 @@ function Calculadora() {
             className={styles.input_box}>
             <label
                 className={styles.label} 
-                id="peso">
+                htmlFor='peso'>
                     Peso (KG)
             </label>
             <div
